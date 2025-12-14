@@ -18,40 +18,45 @@ def add_security_headers(response):
     return response
 
 # Main route for the calculator
+
+# app.py (Modified for Checkbox)
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
     result = None
     error = None
-
-    # Initialize homestead_status to hold the selected value for persistence
+    
+    # Initialize homestead_status to hold the selected value for template persistence
+    # Default to 'no' (False/None) if not submitted or first load
     homestead_status = request.form.get('homestead', 'no') 
 
     if request.method == 'POST':
         try:
-            # 1. Get the Assessed Value
             num1 = float(request.form['num1'])
             
-            # 2. GET the Homestead Selection from the form
-            homestead = request.form['homestead'] 
+            # --- CHECKBOX LOGIC CHANGE HERE ---
+            # If the checkbox is checked, request.form.get('homestead') will return 'yes'.
+            # If the checkbox is UNCHECKED, it returns None.
+            homestead_applied = request.form.get('homestead')
             
             # Save the status for template persistence
-            homestead_status = homestead 
+            homestead_status = homestead_applied 
 
             # --- Property Tax Calculation Logic ---
             taxable_value = num1
             
-            if homestead == 'yes':
-                # Apply $15,000 exemption
-                if num1 <= 15000:
-                    taxable_value = 0 # No tax if property value is less than exemption
+            if homestead_applied == 'yes': # Only applies if the checkbox was checked
+                # Apply $18,000 exemption
+                if num1 <= 18000:
+                    taxable_value = 0
                 else:
-                    taxable_value = num1 - 15000
+                    taxable_value = num1 - 18000
+            
+            # If not checked, taxable_value remains num1
             
             # Calculate final result using the tax rate (8.06 per $1000)
-            # (taxable_value / 1000) * 8.06
             result = (taxable_value / 1000) * 8.06
             
-            # Check for negative result (though logic above mostly prevents this)
+            # Ensure the result is not negative
             if result < 0:
                 result = 0
 
@@ -60,12 +65,11 @@ def calculator():
         except Exception as e:
             error = f"An unexpected error occurred: {e}"
 
-    # Render the HTML template, passing the result, error, and the last selected homestead status
+    # Pass the last status to the template (None if unchecked, 'yes' if checked)
     return render_template('calculator.html', 
                            result=result, 
                            error=error,
                            homestead_status=homestead_status)
-
 # To run the application
 if __name__ == '__main__':
     app.run(debug=True)

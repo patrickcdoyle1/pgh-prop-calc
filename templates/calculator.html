@@ -22,12 +22,15 @@
             <label for="num1">Assessed Propety Value ($):</label>
             <input type="number" step="any" name="num1" id="num1" required>
 
-            <label for="homestead">Do you have a homestead exemption?</label>
-            <select name="homestead" id="homestead" required>
-                <option value="yes" {% if homestead_status == 'yes' %}selected{% endif %}>Yes</option>
-                <option value="no" {% if homestead_status == 'no' %}selected{% endif %}>No</option>
-            </select>
-            
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="homestead" 
+                    name="homestead" 
+                    value="yes"
+                    {% if homestead_status == 'yes' %}checked{% endif %}>
+                <label for="homestead">Apply Homestead Exemption ($18,000)</label>
+            </div>
             <button type="submit">Calculate</button>
         </form>
 
