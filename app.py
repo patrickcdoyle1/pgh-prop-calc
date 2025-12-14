@@ -25,6 +25,7 @@ def calculator():
     city = None
     parks = None
     library = None
+    total = None
     error = None
     
     # Initialize homestead_status to hold the selected value for template persistence
@@ -68,10 +69,11 @@ def calculator():
             if taxable_value < 0:
                 taxable_value = 0   
             
-            # 5. Calculate final result using the tax rate (8.06 per $1000)
+            # 5. Calculate final result using the tax rate 
             city = taxable_value * 0.00806
             parks = taxable_value * 0.0005
             library = taxable_value * 0.00025
+            total = city + parks + library
     
 
         except ValueError:
@@ -84,6 +86,7 @@ def calculator():
                            city=city,
                            parks=parks,
                            library=library, 
+                           total=total,
                            error=error,
                            homestead_status=homestead_status,
                            senior_status=senior_status)
