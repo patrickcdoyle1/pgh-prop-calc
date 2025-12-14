@@ -45,11 +45,11 @@ def calculator():
             taxable_value = num1
             
             if homestead_applied == 'yes': # Only applies if the checkbox was checked
-                # Apply $18,000 exemption
-                if num1 <= 18000:
+                # Apply $15,000 exemption
+                if num1 <= 15000:
                     taxable_value = 0
                 else:
-                    taxable_value = num1 - 18000
+                    taxable_value = num1 - 15000
             
             # If not checked, taxable_value remains num1
             
