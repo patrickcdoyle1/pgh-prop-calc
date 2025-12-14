@@ -22,7 +22,7 @@ def add_security_headers(response):
 def calculator():
     result = None
     error = None
-    
+
     # Initialize homestead_status to hold the selected value for persistence
     homestead_status = request.form.get('homestead', 'no') 
 
@@ -41,11 +41,11 @@ def calculator():
             taxable_value = num1
             
             if homestead == 'yes':
-                # Apply $18,000 exemption
-                if num1 <= 18000:
+                # Apply $15,000 exemption
+                if num1 <= 15000:
                     taxable_value = 0 # No tax if property value is less than exemption
                 else:
-                    taxable_value = num1 - 18000
+                    taxable_value = num1 - 15000
             
             # Calculate final result using the tax rate (8.06 per $1000)
             # (taxable_value / 1000) * 8.06
