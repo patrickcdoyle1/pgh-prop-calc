@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Property Tax Calculator</title>
+    <title>City of Pittsburgh Property Tax Calculator</title>
     <style>
         /* ... (styles remain the same) ... */
         body { font-family: Arial, sans-serif; margin: 20px; }
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <h1>Property Tax Calculator</h1>
+    <h1>City of Pittsburgh Property Tax Calculator</h1>
 
     <div class="calculator">
         <form method="POST">
@@ -29,8 +29,19 @@
                     name="homestead" 
                     value="yes"
                     {% if homestead_status == 'yes' %}checked{% endif %}>
-                <label for="homestead">Apply Homestead Exemption</label>
+                <label for="homestead">Apply Homestead Exemption (Act 50)</label>
             </div>
+
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="senior" 
+                    name="senior" 
+                    value="yes"
+                    {% if senior_status == 'yes' %}checked{% endif %}>
+                <label for="senior">Apply Senior Tax Relief (Act 77)</label>
+            </div>
+
             <button type="submit">Calculate</button>
         </form>
 

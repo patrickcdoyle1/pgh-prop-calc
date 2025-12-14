@@ -28,6 +28,7 @@ def calculator():
     # Initialize homestead_status to hold the selected value for template persistence
     # Default to 'no' (False/None) if not submitted or first load
     homestead_status = request.form.get('homestead', 'no') 
+    senior_status = request.form.get('senior', 'no')
 
     if request.method == 'POST':
         try:
@@ -37,19 +38,26 @@ def calculator():
             # If the checkbox is checked, request.form.get('homestead') will return 'yes'.
             # If the checkbox is UNCHECKED, it returns None.
             homestead_applied = request.form.get('homestead')
+            senior_applied = request.form.get('senior')
             
             # Save the status for template persistence
             homestead_status = homestead_applied 
+            senior_status = senior_applied
 
             # --- Property Tax Calculation Logic ---
             taxable_value = num1
             
-            if homestead_applied == 'yes': # Only applies if the checkbox was checked
-                # Apply $15,000 exemption
-                if num1 <= 15000:
-                    taxable_value = 0
-                else:
-                    taxable_value = num1 - 15000
+          #  if homestead_applied == 'yes' & senior_applied == 'yes': # Only applies if both boxes checked
+            if senior_applied == 'yes':
+                taxable_value = num1 * .6
+
+                if homestead_applied == 'yes':
+                    taxable_value = taxable_value - 15000
+
+            elif senior_applied == 'no' & homestead_applied == 'yes':
+                taxable_value = num1 - 15000
+            
+            else: taxable_value = num1
             
             # If not checked, taxable_value remains num1
             
