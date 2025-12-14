@@ -22,37 +22,50 @@ def add_security_headers(response):
 def calculator():
     result = None
     error = None
+    
+    # Initialize homestead_status to hold the selected value for persistence
+    homestead_status = request.form.get('homestead', 'no') 
 
     if request.method == 'POST':
         try:
-            # Get numbers and operation from the submitted form
+            # 1. Get the Assessed Value
             num1 = float(request.form['num1'])
-            num2 = float(request.form['num2'])
-            operation = request.form['operation']
+            
+            # 2. GET the Homestead Selection from the form
+            homestead = request.form['homestead'] 
+            
+            # Save the status for template persistence
+            homestead_status = homestead 
 
-            if operation == 'add':
-                result = num1 + num2
-            elif operation == 'subtract':
-                result = num1 - num2
-            elif operation == 'multiply':
-                result = num1 * num2
-            elif operation == 'divide':
-                if num2 == 0:
-                    error = "Error: Cannot divide by zero!"
+            # --- Property Tax Calculation Logic ---
+            taxable_value = num1
+            
+            if homestead == 'yes':
+                # Apply $18,000 exemption
+                if num1 <= 18000:
+                    taxable_value = 0 # No tax if property value is less than exemption
                 else:
-                    result = num1 / num2
-            else:
-                error = "Error: Invalid operation."
+                    taxable_value = num1 - 18000
+            
+            # Calculate final result using the tax rate (8.06 per $1000)
+            # (taxable_value / 1000) * 8.06
+            result = (taxable_value / 1000) * 8.06
+            
+            # Check for negative result (though logic above mostly prevents this)
+            if result < 0:
+                result = 0
 
         except ValueError:
-            error = "Error: Invalid input. Please enter valid numbers."
+            error = "Error: Invalid input. Please enter a valid number for the assessed value."
         except Exception as e:
             error = f"An unexpected error occurred: {e}"
 
-    # Render the HTML template, passing the result or error message
-    return render_template('calculator.html', result=result, error=error)
+    # Render the HTML template, passing the result, error, and the last selected homestead status
+    return render_template('calculator.html', 
+                           result=result, 
+                           error=error,
+                           homestead_status=homestead_status)
 
 # To run the application
 if __name__ == '__main__':
-    # Setting debug=True allows for automatic restarts when you save changes
     app.run(debug=True)

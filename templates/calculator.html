@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Python Web Calculator</title>
+    <title>Property Tax Calculator</title>
     <style>
+        /* ... (styles remain the same) ... */
         body { font-family: Arial, sans-serif; margin: 20px; }
         .calculator { border: 1px solid #ccc; padding: 20px; width: 300px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
         input[type="number"], select, button { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
@@ -14,24 +15,19 @@
 </head>
 <body>
 
-    <h1>Simple Flask Calculator</h1>
+    <h1>Property Tax Calculator</h1>
 
     <div class="calculator">
         <form method="POST">
-            <label for="num1">First Number:</label>
+            <label for="num1">Assessed Propety Value ($):</label>
             <input type="number" step="any" name="num1" id="num1" required>
 
-            <label for="operation">Operation:</label>
-            <select name="operation" id="operation" required>
-                <option value="add">+</option>
-                <option value="subtract">-</option>
-                <option value="multiply">×</option>
-                <option value="divide">÷</option>
+            <label for="homestead">Do you have a homestead exemption?</label>
+            <select name="homestead" id="homestead" required>
+                <option value="yes" {% if homestead_status == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if homestead_status == 'no' %}selected{% endif %}>No</option>
             </select>
-
-            <label for="num2">Second Number:</label>
-            <input type="number" step="any" name="num2" id="num2" required>
-
+            
             <button type="submit">Calculate</button>
         </form>
 
@@ -41,7 +37,7 @@
             </div>
         {% elif result is not none %}
             <div class="result">
-                <p><strong>Result:</strong> {{ result }}</p>
+                <p><strong>Estimated Annual Tax:</strong> ${{ "%.2f"|format(result) }}</p>
             </div>
         {% endif %}
     </div>
