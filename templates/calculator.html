@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Pittsburgh Property Tax Calculator</title>
-    <style>
-        /* ... (styles remain the same) ... */
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .calculator { border: 1px solid #ccc; padding: 20px; width: 300px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
-        input[type="number"], select, button { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
-        .checkbox-container { margin-bottom: 15px; } /* Added for better layout */
-        button { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-        .result { margin-top: 20px; padding: 10px; background-color: #f2f2f2; border: 1px solid #ddd; }
-        .error { color: red; }
-    </style>
+
+    <link rel="stylesheet" 
+          href="{{ url_for('static', filename='styles.css') }}?v=1.0.1"> 
+    
 </head>
 <body>
+    <!-- <h1>Pittsburgh Property Tax Calculator</h1>-->
+    
     <div class="calculator">
+        <h2>Pittsburgh Property Tax Calculator</h2>
+       <p>Find your assessed property value at the Allegheny County Real Estate <a href="https://realestate.alleghenycounty.us" target="_blank">website</a> and
+       details about the City's Homestead Exemption (Act 50) and Senior Tax Relief (Act 77) programs
+    <a href="https://www.pittsburghpa.gov/City-Government/Finance-Budget/Taxes/Tax-FAQs" target="_blank">here.</a></p>
         <form method="POST">
-            <label for="num1">Assessed Propety Value ($):</label>
+            <label for="num1">Assessed Property Value ($):</label>
             <input type="number" step="any" name="num1" id="num1" required>
 
             <div class="checkbox-container">
@@ -44,29 +44,38 @@
         </form>
 
         {% if error %}
-            <div class="city error">
+            <div class="results-container error">
                 <p><strong>{{ error }}</strong></p>
             </div>
-        {% elif city is not none %}
-            <div class="city">
-                <p><strong>Estimated 2025 Property Taxes:</strong></p>
-                <p>City tax: ${{ "%.2f"|format(city) }}</p>
-                <p>Parks tax: ${{ "%.2f"|format(parks) }}</p>
-                <p>Library tax: ${{ "%.2f"|format(library) }}</p>
-                <p>Schools tax: ${{ "%.2f"|format(schools) }}</p>
-                <p>Total: ${{ "%.2f"|format(total) }}</p>
-                <br>
-                <p><strong>Estimated 2026 Property Taxes:</strong></p>
-                <p>City tax: ${{ "%.2f"|format(city_new) }}</p>
-                <p>Parks tax: ${{ "%.2f"|format(parks) }}</p>
-                <p>Library tax: ${{ "%.2f"|format(library) }}</p>
-                <p>Schools tax: ${{ "%.2f"|format(schools_new) }}</p>
-                <p>Total: ${{ "%.2f"|format(total_new) }}</p>
-                <br>
-                <p><strong>Total increase</strong>: ${{ "%.2f"|format(increase) }}</p>
+        {% elif total is not none %}
+            <div class="results-container">
+                
+                <h3>Estimated 2025 Taxes</h3>
+                <table class="tax-table">
+                    <tr><td>City Tax</td><td>${{ "%.2f"|format(city) }}</td></tr>
+                    <tr><td>Parks Tax</td><td>${{ "%.2f"|format(parks) }}</td></tr>
+                    <tr><td>Library Tax</td><td>${{ "%.2f"|format(library) }}</td></tr>
+                    <tr><td>School Tax</td><td>${{ "%.2f"|format(schools) }}</td></tr>
+                    <tr class="total-row"><td>TOTAL 2025</td><td>${{ "%.2f"|format(total) }}</td></tr>
+                </table>
+
+                <h3>Estimated 2026 Taxes</h3>
+                <table class="tax-table">
+                    <tr><td>City Tax</td><td>${{ "%.2f"|format(city_new) }}</td></tr>
+                    <tr><td>Parks Tax</td><td>${{ "%.2f"|format(parks) }}</td></tr>
+                    <tr><td>Library Tax</td><td>${{ "%.2f"|format(library) }}</td></tr>
+                    <tr><td>School Tax</td><td>${{ "%.2f"|format(schools_new) }}</td></tr>
+                    <tr class="total-row"><td>TOTAL 2026</td><td>${{ "%.2f"|format(total_new) }}</td></tr>
+                </table>
+                
+                {% set increase_class = 'positive' if increase > 0 else 'negative' %}
+                <div class="increase-callout {{ increase_class }}">
+                    Total Tax Increase: ${{ "%.2f"|format(increase) }}
+                </div>
             </div>
         {% endif %}
     </div>
+</body>
 
 </body>
 </html>
