@@ -45,28 +45,28 @@ def calculator():
             senior_status = senior_applied
 
             # --- Property Tax Calculation Logic ---
-            taxable_value = num1
-        
-
-            # Apply Homestead Exemption (Act 50) $15,000 deduction
-            if homestead_applied == 'yes':
-                deduction = 15000
-
-                if taxable_value <= deduction:
-                    taxable_value = 0
-                else:
-                    taxable_value = taxable_value - deduction       
             
-            # Apply Senior Tax Relief (Act 77): 40% reduction 
+            # 1. Initialize total deduction amount
+            total_deduction = 0
+        
+            # 2. Calculate Homestead Exemption (Act 50) $15,000 deduction
+            if homestead_applied == 'yes':
+                total_deduction += 15000
+                
+            # 3. Calculate Senior Tax Relief (Act 77): 40% reduction 
+            #    Applied to the ORIGINAL Assessed Value (num1)
             if senior_applied == 'yes':
-                taxable_value = taxable_value * .6
+                senior_deduction = num1 * 0.40
+                total_deduction += senior_deduction
 
+            # 4. Calculate Taxable Value
+            taxable_value = num1 - total_deduction
+            
             # Ensure the taxable value is never negative
             if taxable_value < 0:
-                taxable_value = 0
-
+                taxable_value = 0   
             
-            # Calculate final result using the tax rate (8.06 per $1000)
+            # 5. Calculate final result using the tax rate (8.06 per $1000)
             result = (taxable_value / 1000) * 8.06
 
         except ValueError:
