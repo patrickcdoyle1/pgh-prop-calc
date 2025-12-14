@@ -25,7 +25,11 @@ def calculator():
     city = None
     parks = None
     library = None
+    schools = None
     total = None
+    city_new = None
+    schools_new = None
+    total_new = None
     error = None
     
     # Initialize homestead_status to hold the selected value for template persistence
@@ -51,10 +55,12 @@ def calculator():
             
             # 1. Initialize total deduction amount
             total_deduction = 0
+            school_deduction = 0
         
             # 2. Calculate Homestead Exemption (Act 50) $15,000 deduction
             if homestead_applied == 'yes':
                 total_deduction += 15000
+                school_deduction = 43750
                 
             # 3. Calculate Senior Tax Relief (Act 77): 40% reduction 
             #    Applied to the ORIGINAL Assessed Value (num1)
@@ -64,6 +70,7 @@ def calculator():
 
             # 4. Calculate Taxable Value
             taxable_value = num1 - total_deduction
+            school_value = num1 - school_deduction
             
             # Ensure the taxable value is never negative
             if taxable_value < 0:
@@ -73,7 +80,12 @@ def calculator():
             city = taxable_value * 0.00806
             parks = taxable_value * 0.0005
             library = taxable_value * 0.00025
-            total = city + parks + library
+            schools = school_value * 0.01025
+            total = city + parks + library + schools
+
+            city_new = taxable_value * 0.001048
+            schools_new = school_value * 0.01066
+            total_new = city_new + parks + library + schools_new
     
 
         except ValueError:
@@ -86,7 +98,11 @@ def calculator():
                            city=city,
                            parks=parks,
                            library=library, 
+                           schools = schools,
                            total=total,
+                           city_new=city_new,
+                           schools_new=schools_new,
+                           total_new=total_new,
                            error=error,
                            homestead_status=homestead_status,
                            senior_status=senior_status)
