@@ -18,10 +18,13 @@
 
     <h1>Pittsburgh Property Tax Calculator</h1>
     <p>
-        Pittsburgh Public Schools have proposed a 4% property tax increase, while Pittsburgh City Council is 
-        considering a 30% hike. If both are approved, this calculator shows what your estimated property taxes would be in 2026.
+        Pittsburgh Public Schools have proposed a <a href="https://www.wesa.fm/education/2025-12-02/pps-revised-2026-budget-cyber-charter-reform" target="_blank">4% property tax increase</a>, 
+        while Pittsburgh City Council is considering a <a href="https://www.wesa.fm/politics-government/2025-12-08/pittsburgh-council-property-tax-increase" target="_blank">30% hike</a>. 
+        If both are approved, this calculator shows what your estimated property taxes for 2026.
     <br>
-        Learn more about the City's Homestead Exemption (Act 50) and Senior Tax Relief (Act 77)
+    <br>
+        You can find your assessed property value at the <a href="https://realestate.alleghenycounty.us" target="_blank">Allegheny County Real Estate website</a> and
+        details about the City's Homestead Exemption (Act 50) and Senior Tax Relief (Act 77) programs
 <a href="https://www.pittsburghpa.gov/City-Government/Finance-Budget/Taxes/Tax-FAQs" target="_blank">here.</a>
 
 
@@ -62,18 +65,20 @@
         {% elif city is not none %}
             <div class="city">
                 <p><strong>Estimated 2025 Property Taxes:</strong></p>
-                <p>City tax:${{ "%.2f"|format(city) }}</p>
+                <p>City tax: ${{ "%.2f"|format(city) }}</p>
                 <p>Parks tax: ${{ "%.2f"|format(parks) }}</p>
                 <p>Library tax: ${{ "%.2f"|format(library) }}</p>
                 <p>Schools tax: ${{ "%.2f"|format(schools) }}</p>
                 <p>Total: ${{ "%.2f"|format(total) }}</p>
                 <br>
                 <p><strong>Estimated 2026 Property Taxes:</strong></p>
-                <p>City tax:${{ "%.2f"|format(city_new) }}</p>
+                <p>City tax: ${{ "%.2f"|format(city_new) }}</p>
                 <p>Parks tax: ${{ "%.2f"|format(parks) }}</p>
                 <p>Library tax: ${{ "%.2f"|format(library) }}</p>
                 <p>Schools tax: ${{ "%.2f"|format(schools_new) }}</p>
                 <p>Total: ${{ "%.2f"|format(total_new) }}</p>
+                <br>
+                <p><strong>Total increase</strong>: ${{ "%.2f"|format(increase) }}</p>
             </div>
         {% endif %}
     </div>
