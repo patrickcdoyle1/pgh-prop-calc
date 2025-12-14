@@ -46,27 +46,28 @@ def calculator():
 
             # --- Property Tax Calculation Logic ---
             taxable_value = num1
+        
+
+            # Apply Homestead Exemption (Act 50) $15,000 deduction
+            if homestead_applied == 'yes':
+                deduction = 15000
+
+                if taxable_value <= deduction:
+                    taxable_value = 0
+                else:
+                    taxable_value = taxable_value - deduction       
             
-          #  if homestead_applied == 'yes' & senior_applied == 'yes': # Only applies if both boxes checked
+            # Apply Senior Tax Relief (Act 77): 40% reduction 
             if senior_applied == 'yes':
-                taxable_value = num1 * .6
+                taxable_value = taxable_value * .6
 
-                if homestead_applied == 'yes':
-                    taxable_value = taxable_value - 15000
+            # Ensure the taxable value is never negative
+            if taxable_value < 0:
+                taxable_value = 0
 
-            elif senior_applied == 'no' & homestead_applied == 'yes':
-                taxable_value = num1 - 15000
-            
-            else: taxable_value = num1
-            
-            # If not checked, taxable_value remains num1
             
             # Calculate final result using the tax rate (8.06 per $1000)
             result = (taxable_value / 1000) * 8.06
-            
-            # Ensure the result is not negative
-            if result < 0:
-                result = 0
 
         except ValueError:
             error = "Error: Invalid input. Please enter a valid number for the assessed value."
@@ -77,7 +78,8 @@ def calculator():
     return render_template('calculator.html', 
                            result=result, 
                            error=error,
-                           homestead_status=homestead_status)
+                           homestead_status=homestead_status,
+                           senior_status=senior_status)
 # To run the application
 if __name__ == '__main__':
     app.run(debug=True)

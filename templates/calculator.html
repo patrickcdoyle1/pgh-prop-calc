@@ -8,6 +8,7 @@
         body { font-family: Arial, sans-serif; margin: 20px; }
         .calculator { border: 1px solid #ccc; padding: 20px; width: 300px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
         input[type="number"], select, button { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        .checkbox-container { margin-bottom: 15px; } /* Added for better layout */
         button { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
         .result { margin-top: 20px; padding: 10px; background-color: #f2f2f2; border: 1px solid #ddd; }
         .error { color: red; }
@@ -38,7 +39,7 @@
                     id="senior" 
                     name="senior" 
                     value="yes"
-                    {% if senior_status == 'yes' %}checked{% endif %}>
+                    {% if senior_status == 'yes' %}checked{% endif %}> 
                 <label for="senior">Apply Senior Tax Relief (Act 77)</label>
             </div>
 
