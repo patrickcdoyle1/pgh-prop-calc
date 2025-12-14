@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>City of Pittsburgh Property Tax Calculator</title>
+    <title>Pittsburgh Property Tax Calculator</title>
     <style>
         /* ... (styles remain the same) ... */
         body { font-family: Arial, sans-serif; margin: 20px; }
@@ -16,12 +16,12 @@
 </head>
 <body>
 
-    <h1>City of Pittsburgh Property Tax Calculator</h1>
+    <h1>Pittsburgh Property Tax Calculator</h1>
     <p>
         The City of Pittsburgh offers tax relief for owner-occupied properties (Homestead Exemption, Act 50) and for 
         lower-income seniors (Senior Tax Relief, Act 77). 
         
-        <a href="https://www.pittsburghpa.gov/City-Government/Finance-Budget/Taxes/Tax-FAQs">Learn more.</a>
+        <a href="https://www.pittsburghpa.gov/City-Government/Finance-Budget/Taxes/Tax-FAQs" target="_blank">Learn more.</a>
     </p>
 
     <div class="calculator">
@@ -53,12 +53,14 @@
         </form>
 
         {% if error %}
-            <div class="result error">
+            <div class="city error">
                 <p><strong>{{ error }}</strong></p>
             </div>
-        {% elif result is not none %}
-            <div class="result">
-                <p><strong>Estimated Annual Tax:</strong> ${{ "%.2f"|format(result) }}</p>
+        {% elif city is not none %}
+            <div class="city">
+                <p><strong>Estimated City of Pittsburgh Property Tax:</strong> ${{ "%.2f"|format(city) }}</p>
+                <p><strong>Estimated Parks Tax:</strong> ${{ "%.2f"|format(parks) }}</p>
+                <p><strong>Estimated Library Tax:</strong> ${{ "%.2f"|format(library) }}</p>
             </div>
         {% endif %}
     </div>

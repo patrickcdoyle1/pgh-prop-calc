@@ -22,7 +22,9 @@ def add_security_headers(response):
 # app.py (Modified for Checkbox)
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
-    result = None
+    city = None
+    parks = None
+    library = None
     error = None
     
     # Initialize homestead_status to hold the selected value for template persistence
@@ -44,7 +46,7 @@ def calculator():
             homestead_status = homestead_applied 
             senior_status = senior_applied
 
-            # --- Property Tax Calculation Logic ---
+            # --- Property Tax Calculation Logic: City, Schools, Library ---
             
             # 1. Initialize total deduction amount
             total_deduction = 0
@@ -67,7 +69,10 @@ def calculator():
                 taxable_value = 0   
             
             # 5. Calculate final result using the tax rate (8.06 per $1000)
-            result = (taxable_value / 1000) * 8.06
+            city = taxable_value * 0.00806
+            parks = taxable_value * 0.0005
+            library = taxable_value * 0.00025
+    
 
         except ValueError:
             error = "Error: Invalid input. Please enter a valid number for the assessed value."
@@ -76,7 +81,9 @@ def calculator():
 
     # Pass the last status to the template (None if unchecked, 'yes' if checked)
     return render_template('calculator.html', 
-                           result=result, 
+                           city=city,
+                           parks=parks,
+                           library=library, 
                            error=error,
                            homestead_status=homestead_status,
                            senior_status=senior_status)
