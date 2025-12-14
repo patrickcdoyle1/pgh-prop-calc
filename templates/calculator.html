@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Web Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .calculator { border: 1px solid #ccc; padding: 20px; width: 300px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        input[type="number"], select, button { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        .result { margin-top: 20px; padding: 10px; background-color: #f2f2f2; border: 1px solid #ddd; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Flask Calculator</h1>
+
+    <div class="calculator">
+        <form method="POST">
+            <label for="num1">First Number:</label>
+            <input type="number" step="any" name="num1" id="num1" required>
+
+            <label for="operation">Operation:</label>
+            <select name="operation" id="operation" required>
+                <option value="add">+</option>
+                <option value="subtract">-</option>
+                <option value="multiply">×</option>
+                <option value="divide">÷</option>
+            </select>
+
+            <label for="num2">Second Number:</label>
+            <input type="number" step="any" name="num2" id="num2" required>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if error %}
+            <div class="result error">
+                <p><strong>{{ error }}</strong></p>
+            </div>
+        {% elif result is not none %}
+            <div class="result">
+                <p><strong>Result:</strong> {{ result }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
