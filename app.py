@@ -3,6 +3,20 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
+# This middleware adds the X-Frame-Options header to allow embedding.
+@app.after_request
+def add_security_headers(response):
+    # This header controls whether your site can be embedded.
+    # Set it to ALLOWALL to allow embedding on any site.
+    # OR set to ALLOW-FROM https://yourdomain.com if you know the exact domain.
+    response.headers['X-Frame-Options'] = 'ALLOWALL'
+
+    # (Optional, but more secure) CSP header for framing:
+    # frame-ancestors *; allows embedding by any domain
+    # frame-ancestors 'self' https://yourdomain.com; is more restrictive
+    response.headers['Content-Security-Policy'] = "frame-ancestors *;"
+    return response
+
 # Main route for the calculator
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
