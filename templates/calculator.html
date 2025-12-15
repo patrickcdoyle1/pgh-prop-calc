@@ -51,12 +51,12 @@
             <div class="results-container">
                 <h3>Estimated Taxes</h3>
                 <table class="tax-table">
-                    <tr><td><strong>Tax</strong></td><td><strong>2025</strong></td><td><strong>2026</strong></td></tr>
-                    <tr><td>City</td><td>${{ "%.2f"|format(city) }}</td><td>${{ "%.2f"|format(city_new) }}</td></tr>
-                    <tr><td>Parks</td><td>${{ "%.2f"|format(parks) }}</td><td>${{ "%.2f"|format(parks) }}</td></tr>
-                    <tr><td>Library</td><td>${{ "%.2f"|format(library) }}</td><td>${{ "%.2f"|format(library) }}</td></tr>
-                    <tr><td>School</td><td>${{ "%.2f"|format(schools) }}</td><td>${{ "%.2f"|format(schools_new) }}</td></tr>
-                    <tr class="total-row"><td>TOTAL</td><td>${{ "%.2f"|format(total) }}</td><td>${{ "%.2f"|format(total_new) }}</td></tr>
+                    <tr><td><strong>Tax</strong></td><td><strong>2025</strong></td><td><strong>2026</strong></td><td>Increase</td></tr>
+                    <tr><td>City</td><td>${{ "%.2f"|format(city) }}</td><td>${{ "%.2f"|format(city_new) }}</td><d>${{ "%.2f"|format(city_increase) }}</d></tr>
+                    <tr><td>Parks</td><td>${{ "%.2f"|format(parks) }}</td><td>${{ "%.2f"|format(parks) }}</td><td>%0</td></tr>
+                    <tr><td>Library</td><td>${{ "%.2f"|format(library) }}</td><td>${{ "%.2f"|format(library) }}</td><td>$0</td></tr>
+                    <tr><td>School</td><td>${{ "%.2f"|format(schools) }}</td><td>${{ "%.2f"|format(schools_new) }}</td><td>${{ "%.2f"|format(schools_increase) }}</td></tr>
+                    <tr class="total-row"><td>TOTAL</td><td>${{ "%.2f"|format(total) }}</td><td>${{ "%.2f"|format(total_new) }}</td><td>${{ "%.2f"|format(increase) }}</td></tr>
                 </table>
                 
                 {% set increase_class = 'positive' if increase > 0 else 'negative' %}

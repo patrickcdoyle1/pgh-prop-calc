@@ -31,6 +31,8 @@ def calculator():
     schools_new = None
     total_new = None
     increase = None
+    city_increase = None
+    schools_increase = None
     error = None
     
     # Initialize homestead_status to hold the selected value for template persistence
@@ -89,6 +91,8 @@ def calculator():
 
             city_new = taxable_value * 0.01048
             schools_new = school_value * 0.01066
+            city_increase = city_new - city
+            schools_increase = schools_new - schools
             total_new = city_new + parks + library + schools_new
             increase = total_new - total 
     
@@ -109,6 +113,8 @@ def calculator():
                            schools_new=schools_new,
                            total_new=total_new,
                            increase=increase,
+                           city_incrase=city_increase,
+                           schools_increase=schools_increase,
                            error=error,
                            homestead_status=homestead_status,
                            senior_status=senior_status)
