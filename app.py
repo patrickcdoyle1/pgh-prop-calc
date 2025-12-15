@@ -113,7 +113,7 @@ def calculator():
                            schools_new=schools_new,
                            total_new=total_new,
                            increase=increase,
-                           city_incrase=city_increase,
+                           city_increase=city_increase,
                            schools_increase=schools_increase,
                            error=error,
                            homestead_status=homestead_status,
