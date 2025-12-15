@@ -119,11 +119,14 @@ button:hover {
 .tax-table td:first-child {
     color: #555;
 }
-.tax-table td:last-child {
-    text-align: right;
+
+.tax-table tr td:nth-child(2),
+.tax-table tr td:nth-child(3) {
+    text-align: right; /* Right align the numbers */
     font-weight: bold;
     color: #333;
 }
+
 .total-row td {
     border-top: 2px solid #1f375f;
     font-weight: bold !important;
@@ -155,9 +158,10 @@ button:hover {
 
 /* Make the calculator occupy almost the entire screen width */
 .calculator {
-    padding: 15px; /* Reduce padding to save space */
-    margin: 10px; /* Add margin to keep it off the screen edges */
-    max-width: 100%; /* Override max-width for small screens */
+    padding: 15px; 
+    margin: 10px 2vw; /* Use a small viewport margin on the sides */
+    max-width: 100%; 
+    width: 96%; /* Ensure it doesn't touch the screen edges */
 }
 
 /* Reduce the size of the main header */
