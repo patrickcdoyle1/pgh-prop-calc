@@ -77,6 +77,9 @@ def calculator():
             if taxable_value < 0:
                 taxable_value = 0   
             
+            if school_value < 0:
+                school_value = 0
+            
             # 5. Calculate final result using the tax rate 
             city = taxable_value * 0.00806
             parks = taxable_value * 0.0005

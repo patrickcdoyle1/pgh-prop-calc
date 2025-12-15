@@ -49,23 +49,14 @@
             </div>
         {% elif total is not none %}
             <div class="results-container">
-                
-                <h3>Estimated 2025 Taxes</h3>
+                <h3>Estimated Taxes</h3>
                 <table class="tax-table">
-                    <tr><td>City Tax</td><td>${{ "%.2f"|format(city) }}</td></tr>
-                    <tr><td>Parks Tax</td><td>${{ "%.2f"|format(parks) }}</td></tr>
-                    <tr><td>Library Tax</td><td>${{ "%.2f"|format(library) }}</td></tr>
-                    <tr><td>School Tax</td><td>${{ "%.2f"|format(schools) }}</td></tr>
-                    <tr class="total-row"><td>TOTAL 2025</td><td>${{ "%.2f"|format(total) }}</td></tr>
-                </table>
-
-                <h3>Estimated 2026 Taxes</h3>
-                <table class="tax-table">
-                    <tr><td>City Tax</td><td>${{ "%.2f"|format(city_new) }}</td></tr>
-                    <tr><td>Parks Tax</td><td>${{ "%.2f"|format(parks) }}</td></tr>
-                    <tr><td>Library Tax</td><td>${{ "%.2f"|format(library) }}</td></tr>
-                    <tr><td>School Tax</td><td>${{ "%.2f"|format(schools_new) }}</td></tr>
-                    <tr class="total-row"><td>TOTAL 2026</td><td>${{ "%.2f"|format(total_new) }}</td></tr>
+                    <tr><td>Tax</td><td>2025</td><td>2026</td></tr>
+                    <tr><td>City</td><td>${{ "%.2f"|format(city) }}</td><td>${{ "%.2f"|format(city_new) }}></td></tr>
+                    <tr><td>Parks</td><td>${{ "%.2f"|format(parks) }}</td><td>${{ "%.2f"|format(parks) }}</td></tr>
+                    <tr><td>Library</td><td>${{ "%.2f"|format(library) }}</td><td>${{ "%.2f"|format(library) }}</td></tr>
+                    <tr><td>School</td><td>${{ "%.2f"|format(schools) }}</td><td>${{ "%.2f"|format(schools_new) }}</td></tr>
+                    <tr class="total-row"><td>TOTAL</td><td>${{ "%.2f"|format(total) }}</td><td>${{ "%.2f"|format(total_new) }}</td></tr>
                 </table>
                 
                 {% set increase_class = 'positive' if increase > 0 else 'negative' %}
