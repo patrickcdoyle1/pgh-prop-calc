@@ -17,8 +17,8 @@
         — use the "full base year market value." You can find details about the City's Homestead Exemption (Act 50) and Senior Tax Relief (Act 77) programs
     <a href="https://www.pittsburghpa.gov/City-Government/Finance-Budget/Taxes/Tax-FAQs" target="_blank">here.</a> </p>
         <form method="POST">
-            <label for="num1">Assessed Property Value ($):</label>
-            <input type="number" step="any" name="num1" id="num1" required>
+            <label for="assessed">Assessed Property Value ($):</label>
+            <input type="number" step="any" name="assessed" id="assessed" required>
 
             <div class="checkbox-container">
                 <input 
@@ -50,8 +50,9 @@
         {% elif total is not none %}
             <div class="results-container">
                 <h3>Estimated Taxes</h3>
+                <h4>Assessed Property Value: ${{ "%.2f"|format(assessed) }}</h4>
                 <table class="tax-table">
-                    <tr><td><strong>Tax</strong></td><td><strong>2025</strong></td><td><strong>2026</strong></td><td>Increase</td></tr>
+                    <tr><td><strong>Tax</strong></td><td><strong>2025</strong></td><td><strong>2026</strong></td><td><strong>Increase</strong></td></tr>
                     <tr><td>City</td><td>${{ "%.2f"|format(city) }}</td><td>${{ "%.2f"|format(city_new) }}</td><td>${{ "%.2f"|format(city_increase) }}</td></tr>
                     <tr><td>Parks</td><td>${{ "%.2f"|format(parks) }}</td><td>${{ "%.2f"|format(parks) }}</td><td>$0</td></tr>
                     <tr><td>Library</td><td>${{ "%.2f"|format(library) }}</td><td>${{ "%.2f"|format(library) }}</td><td>$0</td></tr>
@@ -59,10 +60,7 @@
                     <tr class="total-row"><td>TOTAL</td><td>${{ "%.2f"|format(total) }}</td><td>${{ "%.2f"|format(total_new) }}</td><td>${{ "%.2f"|format(increase) }}</td></tr>
                 </table>
                 
-                {% set increase_class = 'positive' if increase > 0 else 'negative' %}
-                <div class="increase-callout {{ increase_class }}">
-                    Total Tax Increase: ${{ "%.2f"|format(increase) }}
-                </div>
+  
             </div>
         {% endif %}
     </div>
