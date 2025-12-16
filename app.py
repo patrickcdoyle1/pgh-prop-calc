@@ -33,7 +33,6 @@ def calculator():
     increase = None
     city_increase = None
     schools_increase = None
-    assessed = None
     error = None
     
     # Initialize homestead_status to hold the selected value for template persistence
@@ -43,7 +42,7 @@ def calculator():
 
     if request.method == 'POST':
         try:
-            assessed = float(request.form['assessed'])
+            num1 = float(request.form['num1'])
             
             # --- CHECKBOX LOGIC CHANGE HERE ---
             # If the checkbox is checked, request.form.get('homestead') will return 'yes'.
@@ -67,14 +66,14 @@ def calculator():
                 school_deduction = 43750
                 
             # 3. Calculate Senior Tax Relief (Act 77): 40% reduction 
-            #    Applied to the ORIGINAL Assessed Value 
+            #    Applied to the ORIGINAL Assessed Value (num1)
             if senior_applied == 'yes':
-                senior_deduction = assessed * 0.40
+                senior_deduction = num1 * 0.40
                 total_deduction += senior_deduction
 
             # 4. Calculate Taxable Value
-            taxable_value = assessed - total_deduction
-            school_value = assessed - school_deduction
+            taxable_value = num1 - total_deduction
+            school_value = num1 - school_deduction
             
             # Ensure the taxable value is never negative
             if taxable_value < 0:
