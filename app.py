@@ -33,6 +33,7 @@ def calculator():
     increase = None
     city_increase = None
     schools_increase = None
+    num1 = None
     error = None
     
     # Initialize homestead_status to hold the selected value for template persistence
