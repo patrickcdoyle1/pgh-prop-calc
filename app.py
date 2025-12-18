@@ -9,7 +9,7 @@ def add_security_headers(response):
     # This header controls whether your site can be embedded.
     # Set it to ALLOWALL to allow embedding on any site.
     # OR set to ALLOW-FROM https://yourdomain.com if you know the exact domain.
-    response.headers['X-Frame-Options'] = 'ALLOWALL'
+   # response.headers['X-Frame-Options'] = 'ALLOWALL'
 
     # (Optional, but more secure) CSP header for framing:
     # frame-ancestors *; allows embedding by any domain
@@ -73,8 +73,8 @@ def calculator():
                 total_deduction += senior_deduction
 
             # 4. Calculate Taxable Value
-            taxable_value = num1 - total_deduction
-            school_value = num1 - school_deduction
+            taxable_value = max(0, num1 - total_deduction)
+            school_value = max(0, num1 - school_deduction)
             
             # Ensure the taxable value is never negative
             if taxable_value < 0:
@@ -105,6 +105,7 @@ def calculator():
 
     # Pass the last status to the template (None if unchecked, 'yes' if checked)
     return render_template('calculator.html', 
+                           num1=num1,
                            city=city,
                            parks=parks,
                            library=library, 
