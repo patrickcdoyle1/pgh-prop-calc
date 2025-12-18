@@ -7,14 +7,12 @@ app = Flask(__name__)
 @app.after_request
 def add_security_headers(response):
     # This header controls whether your site can be embedded.
-    # Set it to ALLOWALL to allow embedding on any site.
-    # OR set to ALLOW-FROM https://yourdomain.com if you know the exact domain.
-   # response.headers['X-Frame-Options'] = 'ALLOWALL'
 
     # (Optional, but more secure) CSP header for framing:
     # frame-ancestors *; allows embedding by any domain
     # frame-ancestors 'self' https://yourdomain.com; is more restrictive
-    response.headers['Content-Security-Policy'] = "frame-ancestors *;"
+    # TURN THIS BACK ON FOR IFRAME
+    # response.headers['Content-Security-Policy'] = "frame-ancestors *;"
     return response
 
 # Main route for the calculator
@@ -91,7 +89,7 @@ def calculator():
             total = city + parks + library + schools
 
             city_new = taxable_value * 0.01048
-            schools_new = school_value * 0.01066
+            schools_new = school_value * 0.010457
             city_increase = city_new - city
             schools_increase = schools_new - schools
             total_new = city_new + parks + library + schools_new
@@ -122,4 +120,5 @@ def calculator():
                            senior_status=senior_status)
 # To run the application
 if __name__ == '__main__':
-    app.run(debug=True)
+    # use 501 to bypass MacOS conflict
+    app.run(debug=True, port=5001)
