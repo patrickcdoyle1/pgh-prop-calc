@@ -88,7 +88,7 @@ def calculator():
             schools = school_value * 0.01025
             total = city + parks + library + schools
 
-            city_new = taxable_value * 0.01048
+            city_new = taxable_value * 0.00806 # adjust when we know new tax amount!
             schools_new = school_value * 0.010457
             city_increase = city_new - city
             schools_increase = schools_new - schools
