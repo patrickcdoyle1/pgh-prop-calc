@@ -200,15 +200,19 @@ button:hover {
 /* 7. Responsive Media Query for Mobile */
 @media screen and (max-width: 480px) {
     .calculator {
-        padding: 20px 15px;
+        padding: 15px 10px; /* Reduce outer padding */
     }
     
-    /* Slightly smaller text for mobile to prevent column wrapping */
     .tax-table {
-        font-size: 0.82em; 
+        font-size: 0.75em; /* Slightly smaller for mobile */
     }
 
-    .total-row td {
-        font-size: 1em !important;
+    .tax-table td, .tax-table th {
+        padding: 8px 2px; /* Tighten the cell padding significantly */
+    }
+
+    .tax-table td:not(:first-child), 
+    .tax-table th:not(:first-child) {
+        padding-right: 2px; /* Remove the 15px gap on mobile */
     }
 }
