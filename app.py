@@ -6,9 +6,9 @@ app = Flask(__name__)
 # Adds the X-Frame-Options header to allow embedding.
 @app.after_request
 def add_security_headers(response):
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+ #   response.headers['X-Content-Type-Options'] = 'nosniff'
+  #  response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+  #  response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     return response
 
 # Main route for the calculator
