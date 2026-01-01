@@ -1,6 +1,4 @@
-/* =========================================
-   Pittsburgh Property Tax Calculator Styles
-   ========================================= */
+/* Pittsburgh Property Tax Calculator Styles */
 
 /* 1. Global Styling and Typography */
 body { 
@@ -14,7 +12,7 @@ body {
     min-height: 100vh;
 }
 
-/* 2. Calculator Container (The Card) */
+/* 2. Calculator Container */
 .calculator { 
     border: none;
     padding: 30px;

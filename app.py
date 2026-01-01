@@ -1,23 +1,17 @@
 # app.py Patrick Doyle: patrickcdoyle.com
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# This middleware adds the X-Frame-Options header to allow embedding.
+# Adds the X-Frame-Options header to allow embedding.
 @app.after_request
 def add_security_headers(response):
-    # This header controls whether your site can be embedded.
-
-    # (Optional, but more secure) CSP header for framing:
-    # frame-ancestors *; allows embedding by any domain
-    # frame-ancestors 'self' https://yourdomain.com; is more restrictive
-    # TURN THIS BACK ON FOR IFRAME
-    # response.headers['Content-Security-Policy'] = "frame-ancestors *;"
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     return response
 
 # Main route for the calculator
-
-# app.py (Modified for Checkbox)
 @app.route('/', methods=['GET', 'POST'])
 def calculator():
     city = None
@@ -34,22 +28,21 @@ def calculator():
     num1 = None
     error = None
     
-    # Initialize homestead_status to hold the selected value for template persistence
+    # Initialize homestead_status and senior_status to hold the selected value
     # Default to 'no' (False/None) if not submitted or first load
     homestead_status = request.form.get('homestead', 'no') 
     senior_status = request.form.get('senior', 'no')
 
     if request.method == 'POST':
         try:
+            # get assessed value and assign to num1
             num1 = float(request.form['num1'])
-            
-            # --- CHECKBOX LOGIC CHANGE HERE ---
-            # If the checkbox is checked, request.form.get('homestead') will return 'yes'.
+            # If the checkbox is checked, request.form.get('homestead') will return 'yes'. ditto for senior
             # If the checkbox is UNCHECKED, it returns None.
             homestead_applied = request.form.get('homestead')
             senior_applied = request.form.get('senior')
             
-            # Save the status for template persistence
+            # Save the status
             homestead_status = homestead_applied 
             senior_status = senior_applied
 
@@ -59,7 +52,7 @@ def calculator():
             total_deduction = 0
             school_deduction = 0
         
-            # 2. Calculate Homestead Exemption (Act 50) $15,000 deduction
+            # 2. Calculate Homestead Exemption (Act 50) $15,000 deduction for city, 43750 for Pittsburgh Schools
             if homestead_applied == 'yes':
                 total_deduction += 15000
                 school_deduction = 43750
